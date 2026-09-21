@@ -1,13 +1,15 @@
 /**
- * main.js
- * Handles all interactive behavior for the Little Stage website.
- * Depends on SITE_DATA from site-data.js.
+ * LITTLE STAGE — main.js
+ * =======================
+ * Interaktive Funktionen für Navigation, Event-Rendering, Öffnungszeiten,
+ * Vorschau-Bewertungen, Lightbox-Galerie und Demo-Formular-Handling.
+ * 
+ * Basiert ausschließlich auf Vanilla JavaScript.
+ * Greift auf SITE_DATA aus site-data.js zu.
  */
 
 /**
- * Escapes HTML characters to prevent XSS.
- * @param {string} str - The string to escape.
- * @returns {string} The escaped string.
+ * HTML-Escaping zur sicheren Textausgabe
  */
 function escapeHTML(str) {
   if (typeof str !== 'string') return '';
@@ -20,7 +22,7 @@ function escapeHTML(str) {
 }
 
 /**
- * Initializes the navigation menu, handling scroll effects and mobile toggling.
+ * 1. Navigation & Mobile Menu
  */
 function initNavigation() {
   const nav = document.querySelector('.nav');
@@ -29,7 +31,7 @@ function initNavigation() {
 
   if (nav) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 40) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
@@ -40,41 +42,59 @@ function initNavigation() {
   if (mobileToggle && mobileMenu) {
     const toggleMenu = () => {
       const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-      mobileToggle.setAttribute('aria-expanded', !isExpanded);
-      mobileToggle.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
+      const newState = !isExpanded;
+      mobileToggle.setAttribute('aria-expanded', String(newState));
+      mobileToggle.classList.toggle('active', newState);
+      mobileMenu.classList.toggle('active', newState);
       
-      if (mobileMenu.classList.contains('active')) {
+      if (newState) {
         document.body.style.overflow = 'hidden';
       } else {
         document.body.style.overflow = '';
       }
     };
 
+    const closeMenu = () => {
+      mobileToggle.classList.remove('active');
+      mobileMenu.classList.remove('active');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+
     mobileToggle.addEventListener('click', toggleMenu);
 
+    // Klick auf Menü-Link schließt das Menü
     mobileMenu.addEventListener('click', (e) => {
-      if (e.target.tagName.toLowerCase() === 'a') {
-        mobileToggle.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+      if (e.target.closest('a')) {
+        closeMenu();
       }
     });
 
+    // Klick außerhalb schließt das Menü
     document.addEventListener('click', (e) => {
       if (mobileMenu.classList.contains('active') && !nav.contains(e.target)) {
-        mobileToggle.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        closeMenu();
+      }
+    });
+
+    // Escape-Taste schließt das Menü
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // Reset bei Fenstergrößenänderung auf Desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && mobileMenu.classList.contains('active')) {
+        closeMenu();
       }
     });
   }
 }
 
 /**
- * Initializes scroll reveal animations using IntersectionObserver.
+ * 2. Scroll Reveal Animations (IntersectionObserver)
  */
 function initScrollReveal() {
   const revealElements = document.querySelectorAll('.reveal:not(.visible)');
@@ -89,7 +109,7 @@ function initScrollReveal() {
       });
     }, {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: '0px 0px -40px 0px'
     });
 
     revealElements.forEach(el => observer.observe(el));
@@ -99,91 +119,78 @@ function initScrollReveal() {
 }
 
 /**
- * Renders upcoming events based on SITE_DATA.
+ * 3. Events Rendering (Homepage: 3 Demo-Event Cards mit dezentem Badge)
  */
 function renderEvents() {
   const container = document.getElementById('events-container');
   if (!container || typeof SITE_DATA === 'undefined' || !SITE_DATA.events) return;
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const upcomingEvents = SITE_DATA.events
-    .filter(event => {
-      if (event.status !== 'upcoming') return false;
-      const eventDate = new Date(event.date);
-      return eventDate >= today;
-    })
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-    .slice(0, 3);
-
+  const events = SITE_DATA.events.slice(0, 3);
   const months = ['JAN','FEB','MÄR','APR','MAI','JUN','JUL','AUG','SEP','OKT','NOV','DEZ'];
 
-  if (upcomingEvents.length === 0) {
-    const fallbackLink = SITE_DATA.social && SITE_DATA.social.facebook ? escapeHTML(SITE_DATA.social.facebook) : '#';
+  if (events.length === 0) {
     container.innerHTML = `
       <div class="events-empty">
-        <p>Momentan sind keine Events geplant.</p>
-        <p>Schau bald wieder vorbei — oder folg uns auf <a href="${fallbackLink}">Facebook</a>.</p>
+        <p>Momentan sind keine Events gelistet.</p>
+        <p>Aktuelle Termine erfährst du auch auf unserer <a href="${escapeHTML(SITE_DATA.social.facebook)}" target="_blank" rel="noopener">Facebook-Seite</a>.</p>
       </div>
     `;
-  } else {
-    container.innerHTML = upcomingEvents.map((event, index) => {
-      const dateObj = new Date(event.date);
-      const day = String(dateObj.getDate()).padStart(2, '0');
-      const month = months[dateObj.getMonth()];
-      
-      const delayClass = index < 3 ? `reveal-delay-${index + 1}` : '';
-
-      return `
-        <article class="event-card reveal ${delayClass}">
-          <div class="event-card-image">
-            <img src="${escapeHTML(event.image)}" alt="${escapeHTML(event.title)}" loading="lazy">
-          </div>
-          <div class="event-card-content">
-            <div class="event-card-date">
-              <span class="day">${day}</span>
-              <span class="month">${month}</span>
-            </div>
-            <div class="event-card-info">
-              <span class="event-card-genre">${escapeHTML(event.genre || '')}</span>
-              <h3 class="event-card-title">${escapeHTML(event.title)}</h3>
-              <p class="event-card-time">${escapeHTML(event.time)} Uhr</p>
-              <a href="event-detail.html?id=${escapeHTML(event.id)}" class="event-card-link">Mehr erfahren →</a>
-            </div>
-          </div>
-        </article>
-      `;
-    }).join('');
-    
-    // Re-initialize reveal for newly added elements
-    initScrollReveal();
+    return;
   }
+
+  container.innerHTML = events.map((event, index) => {
+    const dateObj = new Date(event.date);
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const month = months[dateObj.getMonth()] || 'OKT';
+    const delayClass = `reveal-delay-${Math.min(index + 1, 3)}`;
+
+    return `
+      <article class="event-card reveal ${delayClass}">
+        <div class="event-card-image">
+          <!-- Bildhinweis: Vor Veröffentlichung durch Originalfoto der Little Stage ersetzen -->
+          <img src="${escapeHTML(event.image)}" alt="${escapeHTML(event.title)}" loading="lazy">
+          <span class="event-demo-badge">Beispiel</span>
+        </div>
+        <div class="event-card-content">
+          <div class="event-card-date">
+            <span class="day">${day}</span>
+            <span class="month">${month}</span>
+          </div>
+          <div class="event-card-info">
+            <span class="event-card-genre">${escapeHTML(event.genre || 'Live-Musik')}</span>
+            <h3 class="event-card-title">${escapeHTML(event.title)}</h3>
+            <p class="event-card-time">Beginn: ${escapeHTML(event.time)} Uhr</p>
+            <a href="event-detail.html?id=${escapeHTML(event.id)}" class="event-card-link">Mehr erfahren <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  initScrollReveal();
 }
 
 /**
- * Renders opening hours tables into all containers with class 'hours-container'.
+ * 4. Öffnungszeiten (Sicherer neutraler Status aus zentraler Datenquelle)
  */
 function renderHours() {
   if (typeof SITE_DATA === 'undefined' || !SITE_DATA.hours) return;
   const containers = document.querySelectorAll('.hours-container');
-  
   if (containers.length === 0) return;
 
-  const hoursRows = SITE_DATA.hours.map(entry => `
-    <tr>
-      <td>${escapeHTML(entry.days)}</td>
-      <td>${escapeHTML(entry.open)} – ${escapeHTML(entry.close)}</td>
-    </tr>
-  `).join('');
+  const hoursData = SITE_DATA.hours;
 
   const hoursHTML = `
-    <table>
-      <tbody>
-        ${hoursRows}
-      </tbody>
-    </table>
-    ${SITE_DATA.hoursNote ? `<p class="hours-note">${escapeHTML(SITE_DATA.hoursNote)}</p>` : ''}
+    <div class="hours-card">
+      <div class="hours-status-badge">In Aktualisierung</div>
+      <p class="hours-status-title">${escapeHTML(hoursData.statusText)}</p>
+      <p class="hours-status-desc">${escapeHTML(hoursData.notice)}</p>
+      <div class="hours-actions">
+        <a href="${escapeHTML(SITE_DATA.business.phoneHref)}" class="btn btn-outline btn-small">
+          📞 ${escapeHTML(SITE_DATA.business.phoneDisplay)}
+        </a>
+      </div>
+    </div>
   `;
 
   containers.forEach(container => {
@@ -192,23 +199,20 @@ function renderHours() {
 }
 
 /**
- * Renders user reviews and populates Google rating data.
+ * 5. Gästefeedback / Social Proof (Ehrliche Vorschaukarten)
  */
 function renderReviews() {
-  if (typeof SITE_DATA === 'undefined') return;
-  
-  const container = document.getElementById('reviews-container');
-  if (container && SITE_DATA.reviews) {
-    container.innerHTML = SITE_DATA.reviews.map((review, index) => {
-      const starsFull = '★'.repeat(review.rating);
-      const starsEmpty = '☆'.repeat(5 - review.rating);
-      const delayClass = index < 3 ? `reveal-delay-${index + 1}` : '';
+  if (typeof SITE_DATA === 'undefined' || !SITE_DATA.reviews) return;
 
+  const container = document.getElementById('reviews-container');
+  if (container && SITE_DATA.reviews.cards) {
+    container.innerHTML = SITE_DATA.reviews.cards.map((card, index) => {
+      const delayClass = `reveal-delay-${Math.min(index + 1, 3)}`;
       return `
         <div class="review-card reveal ${delayClass}">
-          <div class="review-card-rating">${starsFull}${starsEmpty}</div>
-          <p class="review-card-text">${escapeHTML(review.text)}</p>
-          <p class="review-card-author">— ${escapeHTML(review.author)}, ${escapeHTML(review.source)}</p>
+          <span class="review-preview-tag">${escapeHTML(card.tag)}</span>
+          <p class="review-card-text">„${escapeHTML(card.text)}“</p>
+          <p class="review-card-author">${escapeHTML(card.author)} <span class="review-source">(${escapeHTML(card.source)})</span></p>
         </div>
       `;
     }).join('');
@@ -216,68 +220,77 @@ function renderReviews() {
   }
 
   const ratingArea = document.getElementById('google-rating');
-  if (ratingArea && SITE_DATA.google) {
-    const { rating, reviewCount } = SITE_DATA.google;
-    if (rating && reviewCount) {
-      ratingArea.innerHTML = `
-        <div class="google-rating-score">${escapeHTML(String(rating))}</div>
-        <div class="google-rating-stars">★★★★★</div>
-        <div class="google-rating-count">Basierend auf ${escapeHTML(String(reviewCount))} Google-Rezensionen</div>
-      `;
-    }
+  if (ratingArea && SITE_DATA.reviews) {
+    ratingArea.innerHTML = `
+      <div class="google-integration-box reveal">
+        <span class="google-badge">Google Maps &amp; Feedback</span>
+        <p class="google-notice">${escapeHTML(SITE_DATA.reviews.subline || 'Verifizierte Google-Bewertungen können hier direkt eingebunden werden.')}</p>
+      </div>
+    `;
+    initScrollReveal();
   }
 }
 
 /**
- * Renders the gallery images.
+ * 6. Galerie Rendering
  */
 function renderGallery() {
   const container = document.getElementById('gallery-container');
   if (!container || typeof SITE_DATA === 'undefined' || !SITE_DATA.gallery) return;
 
   container.innerHTML = SITE_DATA.gallery.map((photo, index) => `
-    <div class="gallery-item" data-index="${index}">
-      <img src="${escapeHTML(photo.src)}" alt="${escapeHTML(photo.alt || 'Galeriebild')}" loading="lazy">
+    <div class="gallery-item" data-index="${index}" tabindex="0" role="button" aria-label="Bild vergrößern: ${escapeHTML(photo.alt)}">
+      <!-- Bildhinweis: Vor Veröffentlichung durch Originalfoto der Little Stage ersetzen -->
+      <img src="${escapeHTML(photo.src)}" alt="${escapeHTML(photo.alt || 'Einblick ins Little Stage')}" loading="lazy">
     </div>
   `).join('');
 }
 
 /**
- * Initializes the lightbox functionality for the gallery.
+ * 7. Lightbox Funktionalität für die Galerie
  */
 function initGallery() {
   if (typeof SITE_DATA === 'undefined' || !SITE_DATA.gallery || SITE_DATA.gallery.length === 0) return;
-  
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  if (galleryItems.length === 0) return;
 
-  // Create lightbox DOM elements
-  const lightbox = document.createElement('div');
-  lightbox.className = 'lightbox';
-  lightbox.id = 'lightbox';
-  lightbox.setAttribute('role', 'dialog');
-  lightbox.setAttribute('aria-label', 'Bildergalerie');
-  
-  lightbox.innerHTML = `
-    <button class="lightbox-close" aria-label="Schließen">×</button>
-    <button class="lightbox-nav lightbox-prev" aria-label="Vorheriges Bild">‹</button>
-    <img class="lightbox-image" src="" alt="">
-    <button class="lightbox-nav lightbox-next" aria-label="Nächstes Bild">›</button>
-  `;
-  document.body.appendChild(lightbox);
+  const galleryContainer = document.getElementById('gallery-container');
+  if (!galleryContainer) return;
+
+  let lightbox = document.getElementById('lightbox');
+  if (!lightbox) {
+    lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.id = 'lightbox';
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+    lightbox.setAttribute('aria-label', 'Bildergalerie Vergrößerung');
+    
+    lightbox.innerHTML = `
+      <button class="lightbox-close" aria-label="Schließen">&times;</button>
+      <button class="lightbox-nav lightbox-prev" aria-label="Vorheriges Bild">&#8249;</button>
+      <div class="lightbox-image-wrapper">
+        <img class="lightbox-image" src="" alt="">
+        <p class="lightbox-caption"></p>
+      </div>
+      <button class="lightbox-nav lightbox-next" aria-label="Nächstes Bild">&#8250;</button>
+    `;
+    document.body.appendChild(lightbox);
+  }
 
   const imgEl = lightbox.querySelector('.lightbox-image');
+  const captionEl = lightbox.querySelector('.lightbox-caption');
   const btnClose = lightbox.querySelector('.lightbox-close');
   const btnPrev = lightbox.querySelector('.lightbox-prev');
   const btnNext = lightbox.querySelector('.lightbox-next');
-  
   let currentIndex = 0;
-  
+
   const updateLightbox = () => {
     const photo = SITE_DATA.gallery[currentIndex];
     if (photo) {
       imgEl.src = photo.src;
-      imgEl.alt = photo.alt || 'Galeriebild';
+      imgEl.alt = photo.alt || 'Galeriebild Little Stage';
+      if (captionEl) {
+        captionEl.textContent = photo.alt || '';
+      }
     }
   };
 
@@ -286,6 +299,7 @@ function initGallery() {
     updateLightbox();
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    btnClose.focus();
   };
 
   const closeLightbox = () => {
@@ -305,13 +319,26 @@ function initGallery() {
     updateLightbox();
   };
 
-  galleryItems.forEach((item) => {
-    item.addEventListener('click', () => {
-      const idx = parseInt(item.getAttribute('data-index'), 10);
-      if (!isNaN(idx)) {
-        openLightbox(idx);
+  galleryContainer.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item');
+    if (!item) return;
+    const idx = parseInt(item.getAttribute('data-index'), 10);
+    if (!isNaN(idx)) {
+      openLightbox(idx);
+    }
+  });
+
+  galleryContainer.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const item = e.target.closest('.gallery-item');
+      if (item) {
+        e.preventDefault();
+        const idx = parseInt(item.getAttribute('data-index'), 10);
+        if (!isNaN(idx)) {
+          openLightbox(idx);
+        }
       }
-    });
+    }
   });
 
   btnClose.addEventListener('click', closeLightbox);
@@ -326,7 +353,6 @@ function initGallery() {
 
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('active')) return;
-    
     if (e.key === 'Escape') {
       closeLightbox();
     } else if (e.key === 'ArrowLeft') {
@@ -338,54 +364,108 @@ function initGallery() {
 }
 
 /**
- * Renders footer specific information such as current year and hours.
+ * 8. Footer Copyright-Jahr
  */
 function renderFooter() {
-  const yearEl = document.getElementById('copyright-year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear().toString();
-  }
+  const yearEls = document.querySelectorAll('#copyright-year, .current-year');
+  const currentYear = new Date().getFullYear().toString();
+  yearEls.forEach(el => {
+    el.textContent = currentYear;
+  });
 }
 
 /**
- * Initializes smooth scrolling behavior for internal anchor links.
+ * 9. Smooth Scroll für interne Sprungmarken
  */
 function initSmoothScroll() {
-  const links = document.querySelectorAll('a[href^="#"]:not([href="#"])');
-  
-  links.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if (!targetId || targetId === '#') return;
-      
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        e.preventDefault();
-        
-        // Close mobile menu if open
-        const mobileToggle = document.querySelector('.nav-mobile-toggle');
-        const mobileMenu = document.querySelector('.nav-mobile-menu');
-        if (mobileMenu && mobileMenu.classList.contains('active')) {
-          mobileToggle.classList.remove('active');
-          mobileMenu.classList.remove('active');
-          mobileToggle.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        }
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]:not([href="#"])');
+    if (!link) return;
 
-        const navHeight = 80; // Approximate fixed header height
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-  
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+    const targetId = link.getAttribute('href');
+    if (!targetId || targetId === '#') return;
+
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      e.preventDefault();
+
+      // Mobile Menu schließen falls geöffnet
+      const mobileToggle = document.querySelector('.nav-mobile-toggle');
+      const mobileMenu = document.querySelector('.nav-mobile-menu');
+      if (mobileMenu && mobileMenu.classList.contains('active')) {
+        mobileToggle?.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileToggle?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       }
+
+      const navHeight = 80;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+}
+
+/**
+ * 10. Sichere Demo-Formularverarbeitung (Keine Scheinerfolgsmeldungen!)
+ * Auf /feiern und /bands wird beim Absenden transparent erklärt,
+ * dass im Live-System der Versand aktiviert wird.
+ */
+function initDemoForms() {
+  const forms = document.querySelectorAll('form[action="#"], form.demo-form');
+
+  forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Native HTML5 Validierung prüfen
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Existierende Meldung entfernen
+      const existingNotice = form.parentElement.querySelector('.form-demo-feedback');
+      if (existingNotice) existingNotice.remove();
+
+      const isBandForm = form.id === 'bands-form' || form.querySelector('#band_name');
+      const formType = isBandForm ? 'Band-Bewerbung' : 'Veranstaltungsanfrage';
+
+      const feedbackBox = document.createElement('div');
+      feedbackBox.className = 'form-demo-feedback reveal visible';
+      feedbackBox.setAttribute('role', 'status');
+      feedbackBox.innerHTML = `
+        <div class="form-demo-feedback-inner">
+          <h4>Vorschau-Modus: Formular bereit</h4>
+          <p>
+            <strong>Hinweis für die Live-Version:</strong> 
+            Diese ${escapeHTML(formType)} wird im Produktivbetrieb direkt per E-Mail an das Team der <em>Little Stage</em> (z.B. an info@littlestage.at) übermittelt.
+          </p>
+          <p class="form-demo-sub">
+            In dieser statischen Verkaufsvorschau wurden keine Daten übermittelt. Die Eingabefelder und Validierungen sind voll funktionsfähig.
+          </p>
+          <button type="button" class="btn btn-outline btn-small reset-demo-form-btn">Eingaben zurücksetzen</button>
+        </div>
+      `;
+
+      form.style.display = 'none';
+      form.parentElement.appendChild(feedbackBox);
+
+      feedbackBox.querySelector('.reset-demo-form-btn')?.addEventListener('click', () => {
+        form.reset();
+        feedbackBox.remove();
+        form.style.display = '';
+      });
     });
   });
 }
 
-// Initialize everything on DOMContentLoaded
+// Globaler DOMContentLoaded Handler
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   renderEvents();
@@ -395,5 +475,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   renderFooter();
   initSmoothScroll();
+  initDemoForms();
   initScrollReveal();
 });

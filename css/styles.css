@@ -297,8 +297,57 @@ small, .small {
   text-align: center;
 }
 
+.nav-cta-group {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
 .nav-cta {
   display: none;
+}
+
+.nav-cta-sub {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-cta-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cta-note {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mobile-cta {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.mobile-cta-sub {
+  font-size: 0.72rem;
+  color: #1a1714;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  opacity: 0.85;
 }
 
 .nav-mobile-toggle {
@@ -531,6 +580,36 @@ small, .small {
 .event-card-image {
   height: 180px;
   overflow: hidden;
+  position: relative;
+}
+
+.event-demo-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(26, 23, 20, 0.88);
+  backdrop-filter: blur(4px);
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(200, 149, 108, 0.35);
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.events-demo-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: var(--space-sm);
+  max-width: 600px;
+  margin-inline: auto;
 }
 
 .event-card-image img {
@@ -1240,6 +1319,16 @@ small, .small {
   color: var(--color-accent);
 }
 
+.text-accent {
+  color: var(--color-accent);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.text-accent:hover {
+  color: var(--color-accent-hover);
+}
+
 .social-link-large {
   display: flex;
   align-items: center;
@@ -1264,47 +1353,150 @@ small, .small {
   gap: 0.5rem;
 }
 
-/* Hours container table styling (reusable) */
-.hours-container table {
-  width: 100%;
+/* Hours Card Component (Safe & Professional) */
+.hours-card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  border-left: 3px solid var(--color-accent);
+}
+
+.hours-status-badge {
+  display: inline-block;
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  border-collapse: collapse;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(200, 149, 108, 0.15);
+  color: var(--color-accent);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5rem;
 }
 
-.hours-container td {
-  padding: 0.4rem 0;
-  color: var(--color-text-muted);
-}
-
-.hours-container td:first-child {
-  color: var(--color-text);
-  padding-right: 1rem;
-}
-
-.hours-note {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  margin-top: var(--space-xs);
-  font-style: italic;
-}
-
-/* Google Rating */
-.google-rating-score {
+.hours-status-title {
   font-family: var(--font-display);
-  font-size: 2.5rem;
-  color: var(--color-accent);
+  font-size: 1.25rem;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.03em;
 }
 
-.google-rating-stars {
-  color: var(--color-accent);
-  font-size: 1.2rem;
-}
-
-.google-rating-count {
+.hours-status-desc {
   font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+.hours-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Review Preview Tags & Safe Social Proof */
+.review-preview-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  background: rgba(200, 149, 108, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+.review-source {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+.google-integration-box {
+  background-color: var(--color-bg-card);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 600px;
+  margin: var(--space-lg) auto 0;
+}
+
+.google-badge {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.google-notice {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Demo Form Feedback Box */
+.form-demo-feedback {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem var(--space-md);
+  text-align: center;
+  margin-top: var(--space-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.form-demo-feedback h4 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.form-demo-feedback p {
+  color: var(--color-text);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 0.75rem;
+}
+
+.form-demo-sub {
+  color: var(--color-text-muted) !important;
+  font-size: 0.88rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Legal Content (Impressum / Datenschutz) */
+.legal-content h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: var(--space-sm);
+}
+
+.legal-content h3 {
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  margin-bottom: 0.4rem;
+}
+
+.legal-content p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+  font-size: 0.95rem;
 }
 
 /* Map iframe */
@@ -1360,6 +1552,55 @@ small, .small {
   white-space: nowrap;
 }
 
+.menu-item-badge-unavailable {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  margin-top: 0.25rem;
+}
+
+.menu-demo-notice {
+  background: var(--color-bg-card);
+  border-left: 3px solid var(--color-accent);
+  padding: 1rem 1.25rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-bottom: var(--space-lg);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.menu-category-jump {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.menu-jump-btn {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.menu-jump-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(200, 149, 108, 0.1);
+}
+
 /* --------------------------------------------------------------------------
    20. RESPONSIVE BREAKPOINTS
    -------------------------------------------------------------------------- */
@@ -1388,6 +1629,10 @@ small, .small {
     display: flex;
   }
   
+  .nav-cta-group {
+    display: flex;
+  }
+
   .nav-cta {
     display: inline-flex;
   }

@@ -1,16 +1,17 @@
 /**
- * LITTLE STAGE — Site Data
- * ========================
- * All editable website content in one place.
- * To update events, menu, hours, etc. — edit this file.
- *
- * ⚠️ Opening hours and menu prices are UNVERIFIED PLACEHOLDERS.
- * Confirm with the venue owner before publishing.
+ * LITTLE STAGE — Site Data (Zentraler Datenspeicher)
+ * ==================================================
+ * Alle pflegbaren Inhalte der Website an einem Ort.
+ * 
+ * HINWEIS FÜR DEN INHABER:
+ * Diese Datei dient als Single Source of Truth.
+ * Vor der offiziellen Veröffentlichung werden hier die verifizierten
+ * Öffnungszeiten, die finale Speise-/Getränkekarte und echte Events eingepflegt.
  */
 
 const SITE_DATA = {
 
-  // ─── Business ─────────────────────────────
+  // ─── Betrieb & Kontakt ─────────────────────────────
   business: {
     name: 'Little Stage',
     tagline: 'Pub · Live Music · Wien',
@@ -19,167 +20,195 @@ const SITE_DATA = {
       street: 'Ramperstorffergasse 66',
       zip: '1050',
       city: 'Wien',
-      country: 'AT'
+      district: 'Margareten',
+      country: 'Österreich'
     },
     phone: '+43 1 544 26 90',
     phoneDisplay: '01 544 26 90',
     phoneHref: 'tel:+4315442690',
     email: 'info@littlestage.at',
     owner: 'Fa. Manfred Szendi',
-    foundedYear: 1998,
-    googleMapsUrl: 'https://www.google.com/maps/place/Little+Stage/@48.1852,16.3548,17z',
-    googleMapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2660!2d16.3548!3d48.1852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sLittle+Stage!5e0!3m2!1sde!2sat',
+    googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Ramperstorffergasse+66,+1050+Wien',
+    googleMapsEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2660.0!2d16.3526!3d48.1859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d078f5c8a5555%3A0x0!2sRamperstorffergasse%2066%2C%201050%20Wien!5e0!3m2!1sde!2sat'
   },
 
-  // ─── Opening Hours ────────────────────────
-  // ⚠️ UNVERIFIED — confirm before launch
-  hours: [
-    { days: 'Mo – Fr', open: '17:00', close: '02:00' },
-    { days: 'Sa & Feiertag', open: '17:00', close: '02:00' },
-    { days: 'So', open: '17:00', close: '01:00' }
-  ],
-  hoursNote: 'Änderungen vorbehalten — bei Fragen einfach anrufen.',
-  hoursUnverified: true,
+  // ─── Öffnungszeiten (Sicherer Status) ───────────────
+  // Hinweis: Da öffentlich unterschiedliche Zeiten kursieren, werden hier keine
+  // erfundenen Zeiten angezeigt, sondern ein klarer, kundenfreundlicher Status.
+  hours: {
+    statusText: 'Aktuelle Öffnungszeiten auf Anfrage',
+    notice: 'Die genauen Öffnungszeiten werden derzeit aktualisiert und vor Veröffentlichung der finalen Website bestätigt. Für aktuelle Auskünfte und Reservierungen bitte anrufen.',
+    phoneNotice: 'Tischreservierungen & Auskünfte telefonisch unter 01 544 26 90',
+    verified: false
+  },
 
-  // ─── Social Media ─────────────────────────
+  // ─── Social Media ──────────────────────────────────
+  // Nur tatsächlich verifizierte Profile aufführen. Keine toten "#"-Links.
   social: {
-    facebook: 'https://www.facebook.com/LittleStage',
-    instagram: '#', // TODO: Add real Instagram URL
+    facebook: 'https://www.facebook.com/LittleStage'
+    // Instagram: Noch nicht offiziell verifiziert – wird ergänzt, sobald bestätigt.
   },
 
-  // ─── Google Rating ────────────────────────
-  google: {
-    rating: 4.7,
-    reviewCount: null, // TODO: Set real review count
-    url: 'https://g.page/littlestage-wien'
+  // ─── Social Proof & Google Reviews (Vorschau-Status) ─
+  reviews: {
+    heading: 'Was unsere Gäste sagen',
+    subline: 'Vorschau: Hier können echte Google-Rezensionen und Gästestimmen eingebunden werden.',
+    cards: [
+      {
+        tag: 'Gästestimme · Beislkultur',
+        text: 'Google-Rezensionen können hier automatisch oder kuratiert eingebunden werden, um neuen Gästen die familiäre Atmosphäre des Lokals zu vermitteln.',
+        author: 'Vorschau Google-Rezension',
+        source: 'Google Maps Integration'
+      },
+      {
+        tag: 'Live-Musik · Kleine Bühne',
+        text: 'Feedback von Konzertbesuchern, Musikfans und Stammgästen zu Gigs und Akustik-Abenden wird an dieser Stelle prominent präsentiert.',
+        author: 'Vorschau Live-Feedback',
+        source: 'Konzert- & Eventstimmen'
+      },
+      {
+        tag: 'Pub-Abende & Feiern',
+        text: 'Erfahrungsberichte von Gästen zu Pub-Quiz-Abenden, Geburtstagsfeiern oder gemütlichen Runden im Schanigarten stärken das Vertrauen.',
+        author: 'Vorschau Veranstaltungsfeedback',
+        source: 'Google Maps'
+      }
+    ]
   },
 
-  // ─── Upcoming Events ──────────────────────
-  // Add/remove events here. Status: 'upcoming', 'past', 'cancelled'
+  // ─── Events (Beispielhafte Darstellung) ──────────────
+  // Transparent als Demo-Inhalte gekennzeichnet.
+  eventsDemoNotice: 'Beispielhafte Darstellung – aktuelle Veranstaltungen können später einfach eingepflegt werden.',
   events: [
     {
       id: 'e001',
-      slug: 'jazz-night-oktober',
-      title: 'Jazz Night',
-      date: '2026-10-04',
+      slug: 'beispiel-jazz-session',
+      title: 'Jazz & Groove Session',
+      isDemo: true,
+      badge: 'Beispiel-Event',
+      date: '2026-10-09',
       time: '20:00',
-      image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&q=80',
-      genre: 'Jazz',
-      description: 'Ein Abend voller Jazz — mit lokalen Musikern auf unserer kleinen Bühne. Reservierung empfohlen.',
-      ticketInfo: 'Freier Eintritt',
+      image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800&q=80',
+      genre: 'Jazz / Improvisation',
+      description: 'Beispiel-Veranstaltung zur Demonstration des Event-Kalenders. Im Live-Betrieb stehen hier Musikerbiografie, Programm und Details zum jeweiligen Abend.',
+      ticketInfo: 'Freier Eintritt · Spenden willkommen',
       status: 'upcoming'
     },
     {
       id: 'e002',
-      slug: 'acoustic-session-oktober',
-      title: 'Acoustic Session',
-      date: '2026-10-11',
+      slug: 'beispiel-acoustic-night',
+      title: 'Acoustic Songwriter Night',
+      isDemo: true,
+      badge: 'Beispiel-Event',
+      date: '2026-10-16',
       time: '20:30',
-      image: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=600&q=80',
-      genre: 'Singer/Songwriter',
-      description: 'Unplugged und persönlich — Singer/Songwriter auf der Little Stage.',
-      ticketInfo: 'Freier Eintritt',
+      image: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=800&q=80',
+      genre: 'Acoustic / Songwriter',
+      description: 'Beispiel-Veranstaltung für Unplugged-Konzerte auf der ~8 m² Bühne des Little Stage. Zeigt die saubere Darstellung von Künstlerinfos und Beginnzeiten.',
+      ticketInfo: 'Freier Eintritt · Reservierung empfohlen',
       status: 'upcoming'
     },
     {
       id: 'e003',
-      slug: 'pub-quiz-oktober',
-      title: 'Pub Quiz Night',
-      date: '2026-10-18',
+      slug: 'beispiel-pub-quiz',
+      title: 'Little Stage Pub Quiz',
+      isDemo: true,
+      badge: 'Beispiel-Event',
+      date: '2026-10-23',
       time: '19:30',
-      image: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&q=80',
-      genre: 'Pub Quiz',
-      description: 'Rätseln, raten, gewinnen — unser legendäres Pub Quiz ist zurück. Teams bis 6 Personen.',
-      ticketInfo: 'Freier Eintritt',
+      image: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=800&q=80',
+      genre: 'Pub Quiz / Community',
+      description: 'Beispiel für regelmäßige Kneipen- und Themenabende. Teams bis 6 Personen können vorab einen Tisch reservieren.',
+      ticketInfo: 'Teilnahme frei · Anmeldung vorab erbeten',
       status: 'upcoming'
     }
   ],
 
-  // ─── Menu ─────────────────────────────────
-  // ⚠️ Prices are PLACEHOLDERS — confirm with owner
+  // ─── Speisen & Getränke (Strukturierte Demo-Karte) ────
+  // Hinweis: Preise und Produkte sind als Beispielpositionen strukturiert,
+  // damit der Inhaber sieht, wie Kategorien, Mengenangaben und Hinweise aussehen.
+  menuNotice: 'Beispielhafte Darstellung – aktuelle Karte und Preise werden vor Veröffentlichung direkt vom Inhaber übernommen.',
   menu: {
     fassbier: {
       title: 'Fassbier',
       icon: '🍺',
+      note: 'Frisch gezapft vom Fass – z.B. Trumer Pils und Guinness.',
       items: [
-        { name: 'Trumer Pils', description: '0,3l / 0,5l', price: '3,90 / 4,90', available: true },
-        { name: 'Guinness', description: '0,4l', price: '5,50', available: true },
+        { name: 'Trumer Pils vom Fass', description: 'Feinherbes Salzburger Pils, frisch gezapft', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Guinness Draught', description: 'Original irisches Stout vom Fass', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Saisonales Fassbier / Zwickl', description: 'Wechselnde Spezialität nach Tagesangebot', price: 'Preis n. V.', available: false, isDemo: true }
       ]
     },
     flaschenbier: {
-      title: 'Flaschenbier',
+      title: 'Flaschenbier & Cider',
       icon: '🍻',
+      note: 'Regionale und internationale Flaschenbiere.',
       items: [
-        { name: 'Stiegl Goldbräu', description: '0,33l', price: '3,90', available: true },
-        { name: 'Erdinger Weißbier', description: '0,5l', price: '4,90', available: true },
+        { name: 'Österreichisches Märzenbier', description: 'Klassisches Helles, 0,5l Flasche', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Weißbier / Weizen', description: 'Hefe-Hell oder Dunkel, 0,5l Flasche', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Alkoholfreies Bier', description: 'Erfrischend hopfig, 0,5l Flasche', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Cider / Apfelwein', description: 'Fruchtig-herb, 0,33l Flasche', price: 'Preis n. V.', available: true, isDemo: true }
       ]
     },
     wein: {
-      title: 'Wein',
+      title: 'Wein & Spritzer',
       icon: '🍷',
+      note: 'Ausgewählte Weiß- und Rotweine sowie echte Wiener Spritzer.',
       items: [
-        { name: 'Grüner Veltliner', description: '1/8l', price: '3,50', available: true },
-        { name: 'Zweigelt', description: '1/8l', price: '3,50', available: true },
-        { name: 'Spritzer', description: 'sauer / süß', price: '2,90', available: true },
+        { name: 'Grüner Veltliner', description: 'Klassischer Wiener oder Weinviertler Weißwein, 1/8l', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Zweigelt / Blaufränkisch', description: 'Österreichischer Rotwein, samtig trocken, 1/8l', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Wiener Spritzer (Weiß)', description: 'Wein mit Sodawasser gespritzt, 1/4l', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Kaiserspritzer', description: 'Mit einem Schuss Holundersirup, 1/4l', price: 'Preis n. V.', available: true, isDemo: true }
       ]
     },
     alkoholfrei: {
       title: 'Alkoholfrei',
       icon: '🥤',
+      note: 'Erfrischungen, Säfte und Sodas.',
       items: [
-        { name: 'Mineral', description: '0,33l', price: '2,50', available: true },
-        { name: 'Apfelsaft gespritzt', description: '0,5l', price: '3,20', available: true },
+        { name: 'Mineralwasser', description: 'Prickelnd oder still, 0,33l', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Fruchtsäfte & Nektare', description: 'Apfel, Johannisbeere oder Orange (pur oder mit Soda)', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Cola / Kräuterlimonade', description: 'Klassische alkoholfreie Erfrischungen, 0,33l', price: 'Preis n. V.', available: true, isDemo: true }
+      ]
+    },
+    drinks: {
+      title: 'Drinks & Spirituosen',
+      icon: '🥃',
+      note: 'Pub-Klassiker, Longdrinks und feine Tropfen an der Bar.',
+      items: [
+        { name: 'Gin & Tonic', description: 'Klassisch serviert mit Zitrone oder Gurke', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Irish Whiskey & Scotch', description: 'Auswahl an der Bar – z.B. Jameson oder Tullamore', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Rum & Cola', description: 'Klassischer Longdrink auf Eis', price: 'Preis n. V.', available: true, isDemo: true }
       ]
     },
     speisen: {
-      title: 'Speisen',
+      title: 'Kleine Beislküche & Snacks',
       icon: '🍽️',
+      note: 'Ehrliche, warme und kalte Schmankerl zum Bier.',
       items: [
-        { name: 'Würstel mit Senf & Brot', description: '', price: '5,50', available: true },
-        { name: 'Käsebrot', description: 'mit Gurkerl', price: '4,50', available: true },
+        { name: 'Wiener Würstel', description: 'Mit Estragonsenf, Kren und frischem Gebäck', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Debreziner / Käsekrainer', description: 'Heiß serviert mit Senf und Brot', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Herzhaftes Beisl-Käsebrot', description: 'Mit Essiggurkerl und Pfefferoni garniert', price: 'Preis n. V.', available: true, isDemo: true },
+        { name: 'Toast & Knabbereien', description: 'Schinken-Käse-Toast und Pub-Snacks', price: 'Preis n. V.', available: true, isDemo: true }
       ]
     },
     tageskarte: {
-      title: 'Tageskarte',
+      title: 'Tageskarte & Spezialitäten',
       icon: '📋',
-      note: 'Unsere Tageskarte wechselt täglich — einfach nachfragen!',
+      note: 'Unsere Tagesgerichte wechseln regelmäßig und bieten bodenständige Spezialitäten – bitte direkt beim Service nachfragen!',
       items: []
     }
   },
 
-  // ─── Reviews ──────────────────────────────
-  // Replace with verified real reviews before launch
-  reviews: [
-    {
-      text: 'Super gemütlich, tolle Live-Musik und freundliche Leute. Unser Stammlokal im Fünften!',
-      author: 'Stammgast',
-      source: 'Google',
-      rating: 5
-    },
-    {
-      text: 'Kleine Bühne, großer Sound. Perfekt für einen entspannten Abend mit gutem Bier.',
-      author: 'Musikfan',
-      source: 'Google',
-      rating: 5
-    },
-    {
-      text: 'Wie ein Wohnzimmer mit Bühne. Man fühlt sich sofort willkommen.',
-      author: 'Gelegenheitsbesucher',
-      source: 'Facebook',
-      rating: 5
-    }
-  ],
-
-  // ─── Gallery ──────────────────────────────
-  // Replace with real venue photos before launch
+  // ─── Galerie ───────────────────────────────────────
+  // Bildhinweis: Vor Veröffentlichung durch Originalfotos der Little Stage ersetzen.
   gallery: [
-    { src: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&q=80', alt: 'Live-Musik auf der Bühne', category: 'live' },
-    { src: 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=600&q=80', alt: 'Die Bar im Little Stage', category: 'bar' },
-    { src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80', alt: 'Essen im Little Stage', category: 'food' },
-    { src: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=600&q=80', alt: 'Gitarrist auf der kleinen Bühne', category: 'live' },
-    { src: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=600&q=80', alt: 'Geselliger Abend', category: 'people' },
-    { src: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80', alt: 'Speisen aus der Küche', category: 'food' },
-    { src: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80', alt: 'Konzertstimmung im Lokal', category: 'live' },
-    { src: 'https://images.unsplash.com/photo-1567696911980-2eed69a46042?w=600&q=80', alt: 'Frisch gezapftes Bier', category: 'drinks' },
+    { src: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800&q=80', alt: 'Atmosphäre eines Live-Konzerts auf der kleinen Bühne', category: 'live' },
+    { src: 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=800&q=80', alt: 'Gemütlicher Barbereich mit Zapfhähnen und Gläsern', category: 'bar' },
+    { src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80', alt: 'Gastronomie und frisch zubereitete Beislspeisen', category: 'food' },
+    { src: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=800&q=80', alt: 'Gitarrenspiel bei einer intimen Akustik-Session', category: 'live' },
+    { src: 'https://images.unsplash.com/photo-1528495612343-9ca9f4a4de28?w=800&q=80', alt: 'Geselliges Beisammensein im Lokal', category: 'people' },
+    { src: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80', alt: 'Klassische Snacks und Speisen aus der Pub-Küche', category: 'food' },
+    { src: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80', alt: 'Stimmungsvolles Bühnenlicht während eines Gigs', category: 'live' },
+    { src: 'https://images.unsplash.com/photo-1567696911980-2eed69a46042?w=800&q=80', alt: 'Frisch gezapftes kaltes Bier mit Schaumkrone', category: 'drinks' }
   ]
 };
