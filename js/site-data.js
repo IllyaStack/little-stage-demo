@@ -33,13 +33,9 @@ const SITE_DATA = {
   },
 
   // ─── Öffnungszeiten (Sicherer Status) ───────────────
-  // Hinweis: Da öffentlich unterschiedliche Zeiten kursieren, werden hier keine
-  // erfundenen Zeiten angezeigt, sondern ein klarer, kundenfreundlicher Status.
+  hoursText: 'Aktuelle Öffnungszeiten bitte telefonisch erfragen.',
   hours: {
-    statusText: 'Aktuelle Öffnungszeiten bitte telefonisch erfragen.',
-    notice: 'Für tagesaktuelle Öffnungszeiten und Tischreservierungen erreichst du uns direkt telefonisch.',
-    phoneNotice: 'Tischreservierungen & Auskünfte telefonisch unter 01 544 26 90',
-    verified: false
+    statusText: 'Aktuelle Öffnungszeiten bitte telefonisch erfragen.'
   },
 
   // ─── Social Media ──────────────────────────────────

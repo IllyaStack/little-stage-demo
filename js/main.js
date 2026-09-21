@@ -2,7 +2,7 @@
  * LITTLE STAGE — main.js
  * =======================
  * Interaktive Funktionen für Navigation, Event-Rendering, Öffnungszeiten,
- * Vorschau-Bewertungen, Lightbox-Galerie und Demo-Formular-Handling.
+ * Lightbox-Galerie und Demo-Formular-Handling.
  * 
  * Basiert ausschließlich auf Vanilla JavaScript.
  * Greift auf SITE_DATA aus site-data.js zu.
@@ -174,26 +174,31 @@ function renderEvents() {
  * 4. Öffnungszeiten (Sicherer neutraler Status aus zentraler Datenquelle)
  */
 function renderHours() {
-  if (typeof SITE_DATA === 'undefined' || !SITE_DATA.hours) return;
   const containers = document.querySelectorAll('.hours-container');
   if (containers.length === 0) return;
 
-  const hoursData = SITE_DATA.hours;
+  const hoursText = (typeof SITE_DATA !== 'undefined' && (SITE_DATA.hoursText || (SITE_DATA.hours && SITE_DATA.hours.statusText)))
+    ? (SITE_DATA.hoursText || SITE_DATA.hours.statusText)
+    : 'Aktuelle Öffnungszeiten bitte telefonisch erfragen.';
 
-  const hoursHTML = `
-    <div class="hours-card">
-      <p class="hours-status-title">${escapeHTML(hoursData.statusText)}</p>
-      <p class="hours-status-desc">${escapeHTML(hoursData.notice)}</p>
-      <div class="hours-actions">
-        <a href="${escapeHTML(SITE_DATA.business.phoneHref)}" class="btn btn-outline btn-small">
-          📞 ${escapeHTML(SITE_DATA.business.phoneDisplay)}
-        </a>
-      </div>
-    </div>
-  `;
+  const phoneHref = (typeof SITE_DATA !== 'undefined' && SITE_DATA.business && SITE_DATA.business.phoneHref)
+    ? SITE_DATA.business.phoneHref
+    : 'tel:+4315442690';
+  const phoneDisplay = (typeof SITE_DATA !== 'undefined' && SITE_DATA.business && SITE_DATA.business.phoneDisplay)
+    ? SITE_DATA.business.phoneDisplay
+    : '01 544 26 90';
 
   containers.forEach(container => {
-    container.innerHTML = hoursHTML;
+    if (container.closest('.visit-col')) {
+      container.innerHTML = `
+        <p class="hours-text">${escapeHTML(hoursText)}</p>
+        <div class="visit-actions" style="margin-top: var(--space-sm);">
+          <a href="${escapeHTML(phoneHref)}" class="btn btn-outline btn-small">📞 ${escapeHTML(phoneDisplay)} anrufen</a>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `<p class="hours-text">${escapeHTML(hoursText)}</p>`;
+    }
   });
 }
 
@@ -406,17 +411,16 @@ function initDemoForms() {
       const existingNotice = form.querySelector('.form-demo-inline-notice');
       if (existingNotice) existingNotice.remove();
 
-      const isBandForm = form.id === 'bands-form' || !!form.querySelector('#band_name') || window.location.pathname.includes('bands');
-      const noticeText = isBandForm
-        ? 'Demo-Version: In der finalen Website wird die Anfrage direkt an Little Stage gesendet.'
-        : 'Demo-Version: In der finalen Website wird diese Anfrage direkt an Little Stage gesendet.';
+      const noticeText = 'Demo-Version: In der finalen Website wird diese Anfrage direkt an Little Stage gesendet.';
 
       const notice = document.createElement('div');
       notice.className = 'form-demo-inline-notice';
       notice.setAttribute('role', 'status');
+      notice.setAttribute('aria-live', 'polite');
+      notice.setAttribute('tabindex', '-1');
       notice.innerHTML = `
         <span class="notice-icon" aria-hidden="true">ℹ️</span>
-        <span>${escapeHTML(noticeText)}</span>
+        <span class="notice-text">${escapeHTML(noticeText)}</span>
       `;
 
       // Direkt nach dem Absende-Button einfügen
@@ -426,6 +430,9 @@ function initDemoForms() {
       } else {
         form.appendChild(notice);
       }
+
+      // Fokus auf Statusmeldung setzen
+      notice.focus();
     });
   });
 }

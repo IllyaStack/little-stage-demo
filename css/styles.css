@@ -1032,20 +1032,6 @@ small, .small {
   margin-bottom: var(--space-sm);
 }
 
-.visit-hours table {
-  width: 100%;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-}
-
-.visit-hours td {
-  padding: 0.4rem 0;
-  color: var(--color-text-muted);
-}
-
-.visit-hours td:first-child {
-  color: var(--color-text);
-}
 
 .visit-map {
   grid-column: span 1;
@@ -1316,57 +1302,17 @@ small, .small {
   gap: 0.5rem;
 }
 
-/* Hours Card Component (Safe & Professional) */
-.hours-card {
-  background-color: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  border-left: 3px solid var(--color-accent);
-}
-
-.hours-status-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: var(--color-text);
-  margin-bottom: 0.4rem;
-  letter-spacing: 0.03em;
-}
-
-.hours-status-desc {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
+/* Opening Hours Display */
+.hours-text {
   color: var(--color-text-muted);
-  line-height: 1.5;
-  margin-bottom: 0.85rem;
-}
-
-.hours-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-/* Footer Hours refinement */
-.footer-col .hours-card {
-  background: transparent;
-  border: none;
-  padding: 0;
-  border-left: none;
-}
-
-.footer-col .hours-status-title {
   font-family: var(--font-body);
-  font-size: 0.92rem;
-  font-weight: 500;
-  letter-spacing: normal;
-  color: var(--color-text);
-  margin-bottom: 0.35rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.footer-col .hours-status-desc {
-  font-size: 0.82rem;
-  margin-bottom: 0.75rem;
+.footer-col .hours-text {
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 /* Demo Form Inline Notice (Non-disruptive & Tasteful) */
@@ -1383,6 +1329,12 @@ small, .small {
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  outline: none;
+}
+
+.form-demo-inline-notice:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .form-demo-inline-notice .notice-icon {
