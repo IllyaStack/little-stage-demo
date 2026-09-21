@@ -36,8 +36,8 @@ const SITE_DATA = {
   // Hinweis: Da öffentlich unterschiedliche Zeiten kursieren, werden hier keine
   // erfundenen Zeiten angezeigt, sondern ein klarer, kundenfreundlicher Status.
   hours: {
-    statusText: 'Aktuelle Öffnungszeiten auf Anfrage',
-    notice: 'Die genauen Öffnungszeiten werden derzeit aktualisiert und vor Veröffentlichung der finalen Website bestätigt. Für aktuelle Auskünfte und Reservierungen bitte anrufen.',
+    statusText: 'Aktuelle Öffnungszeiten bitte telefonisch erfragen.',
+    notice: 'Für tagesaktuelle Öffnungszeiten und Tischreservierungen erreichst du uns direkt telefonisch.',
     phoneNotice: 'Tischreservierungen & Auskünfte telefonisch unter 01 544 26 90',
     verified: false
   },
@@ -47,32 +47,6 @@ const SITE_DATA = {
   social: {
     facebook: 'https://www.facebook.com/LittleStage'
     // Instagram: Noch nicht offiziell verifiziert – wird ergänzt, sobald bestätigt.
-  },
-
-  // ─── Social Proof & Google Reviews (Vorschau-Status) ─
-  reviews: {
-    heading: 'Was unsere Gäste sagen',
-    subline: 'Vorschau: Hier können echte Google-Rezensionen und Gästestimmen eingebunden werden.',
-    cards: [
-      {
-        tag: 'Gästestimme · Beislkultur',
-        text: 'Google-Rezensionen können hier automatisch oder kuratiert eingebunden werden, um neuen Gästen die familiäre Atmosphäre des Lokals zu vermitteln.',
-        author: 'Vorschau Google-Rezension',
-        source: 'Google Maps Integration'
-      },
-      {
-        tag: 'Live-Musik · Kleine Bühne',
-        text: 'Feedback von Konzertbesuchern, Musikfans und Stammgästen zu Gigs und Akustik-Abenden wird an dieser Stelle prominent präsentiert.',
-        author: 'Vorschau Live-Feedback',
-        source: 'Konzert- & Eventstimmen'
-      },
-      {
-        tag: 'Pub-Abende & Feiern',
-        text: 'Erfahrungsberichte von Gästen zu Pub-Quiz-Abenden, Geburtstagsfeiern oder gemütlichen Runden im Schanigarten stärken das Vertrauen.',
-        author: 'Vorschau Veranstaltungsfeedback',
-        source: 'Google Maps'
-      }
-    ]
   },
 
   // ─── Events (Beispielhafte Darstellung) ──────────────

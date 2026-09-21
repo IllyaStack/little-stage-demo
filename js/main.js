@@ -182,7 +182,6 @@ function renderHours() {
 
   const hoursHTML = `
     <div class="hours-card">
-      <div class="hours-status-badge">In Aktualisierung</div>
       <p class="hours-status-title">${escapeHTML(hoursData.statusText)}</p>
       <p class="hours-status-desc">${escapeHTML(hoursData.notice)}</p>
       <div class="hours-actions">
@@ -196,39 +195,6 @@ function renderHours() {
   containers.forEach(container => {
     container.innerHTML = hoursHTML;
   });
-}
-
-/**
- * 5. Gästefeedback / Social Proof (Ehrliche Vorschaukarten)
- */
-function renderReviews() {
-  if (typeof SITE_DATA === 'undefined' || !SITE_DATA.reviews) return;
-
-  const container = document.getElementById('reviews-container');
-  if (container && SITE_DATA.reviews.cards) {
-    container.innerHTML = SITE_DATA.reviews.cards.map((card, index) => {
-      const delayClass = `reveal-delay-${Math.min(index + 1, 3)}`;
-      return `
-        <div class="review-card reveal ${delayClass}">
-          <span class="review-preview-tag">${escapeHTML(card.tag)}</span>
-          <p class="review-card-text">„${escapeHTML(card.text)}“</p>
-          <p class="review-card-author">${escapeHTML(card.author)} <span class="review-source">(${escapeHTML(card.source)})</span></p>
-        </div>
-      `;
-    }).join('');
-    initScrollReveal();
-  }
-
-  const ratingArea = document.getElementById('google-rating');
-  if (ratingArea && SITE_DATA.reviews) {
-    ratingArea.innerHTML = `
-      <div class="google-integration-box reveal">
-        <span class="google-badge">Google Maps &amp; Feedback</span>
-        <p class="google-notice">${escapeHTML(SITE_DATA.reviews.subline || 'Verifizierte Google-Bewertungen können hier direkt eingebunden werden.')}</p>
-      </div>
-    `;
-    initScrollReveal();
-  }
 }
 
 /**
@@ -412,55 +378,54 @@ function initSmoothScroll() {
 }
 
 /**
- * 10. Sichere Demo-Formularverarbeitung (Keine Scheinerfolgsmeldungen!)
- * Auf /feiern und /bands wird beim Absenden transparent erklärt,
- * dass im Live-System der Versand aktiviert wird.
+ * 10. Sichere Demo-Formularverarbeitung (Dezente Inline-Nachricht)
+ * Auf /feiern und /bands wird beim Absenden ein geschmackvoller Inline-Hinweis
+ * direkt unterhalb des Buttons platziert. Das Formular bleibt sichtbar.
+ * Sobald der Nutzer Felder bearbeitet, verschwindet der Hinweis wieder.
  */
 function initDemoForms() {
-  const forms = document.querySelectorAll('form[action="#"], form.demo-form');
+  const forms = document.querySelectorAll('form');
 
   forms.forEach(form => {
+    // Wenn der Nutzer ein Feld bearbeitet, Hinweis ausblenden
+    form.addEventListener('input', () => {
+      const notice = form.querySelector('.form-demo-inline-notice');
+      if (notice) notice.remove();
+    });
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Native HTML5 Validierung prüfen
+      // Native HTML5-Validierung
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
-      // Existierende Meldung entfernen
-      const existingNotice = form.parentElement.querySelector('.form-demo-feedback');
+      // Bereits bestehenden Hinweis entfernen
+      const existingNotice = form.querySelector('.form-demo-inline-notice');
       if (existingNotice) existingNotice.remove();
 
-      const isBandForm = form.id === 'bands-form' || form.querySelector('#band_name');
-      const formType = isBandForm ? 'Band-Bewerbung' : 'Veranstaltungsanfrage';
+      const isBandForm = form.id === 'bands-form' || !!form.querySelector('#band_name') || window.location.pathname.includes('bands');
+      const noticeText = isBandForm
+        ? 'Demo-Version: In der finalen Website wird die Anfrage direkt an Little Stage gesendet.'
+        : 'Demo-Version: In der finalen Website wird diese Anfrage direkt an Little Stage gesendet.';
 
-      const feedbackBox = document.createElement('div');
-      feedbackBox.className = 'form-demo-feedback reveal visible';
-      feedbackBox.setAttribute('role', 'status');
-      feedbackBox.innerHTML = `
-        <div class="form-demo-feedback-inner">
-          <h4>Vorschau-Modus: Formular bereit</h4>
-          <p>
-            <strong>Hinweis für die Live-Version:</strong> 
-            Diese ${escapeHTML(formType)} wird im Produktivbetrieb direkt per E-Mail an das Team der <em>Little Stage</em> (z.B. an info@littlestage.at) übermittelt.
-          </p>
-          <p class="form-demo-sub">
-            In dieser statischen Verkaufsvorschau wurden keine Daten übermittelt. Die Eingabefelder und Validierungen sind voll funktionsfähig.
-          </p>
-          <button type="button" class="btn btn-outline btn-small reset-demo-form-btn">Eingaben zurücksetzen</button>
-        </div>
+      const notice = document.createElement('div');
+      notice.className = 'form-demo-inline-notice';
+      notice.setAttribute('role', 'status');
+      notice.innerHTML = `
+        <span class="notice-icon" aria-hidden="true">ℹ️</span>
+        <span>${escapeHTML(noticeText)}</span>
       `;
 
-      form.style.display = 'none';
-      form.parentElement.appendChild(feedbackBox);
-
-      feedbackBox.querySelector('.reset-demo-form-btn')?.addEventListener('click', () => {
-        form.reset();
-        feedbackBox.remove();
-        form.style.display = '';
-      });
+      // Direkt nach dem Absende-Button einfügen
+      const submitBtn = form.querySelector('button[type="submit"]') || form.lastElementChild;
+      if (submitBtn && submitBtn.parentNode) {
+        submitBtn.insertAdjacentElement('afterend', notice);
+      } else {
+        form.appendChild(notice);
+      }
     });
   });
 }
@@ -470,7 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   renderEvents();
   renderHours();
-  renderReviews();
   renderGallery();
   initGallery();
   renderFooter();
