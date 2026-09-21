@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Essen & Trinken — Little Stage Wien</title>
+  <meta name="description" content="Die Karte im Little Stage — Fassbier, Wein, Drinks und ehrliche Beislküche in Wien-Margareten.">
+  <link rel="canonical" href="https://littlestage.at/karte.html">
+  <meta property="og:title" content="Essen & Trinken — Little Stage Wien">
+  <meta property="og:description" content="Die Karte im Little Stage — Fassbier, Wein, Drinks und ehrliche Beislküche in Wien-Margareten.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_AT">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+  <style>
+    /* Page-specific overrides — all base menu styles are in styles.css */
+    .hero-small {
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      margin-top: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- NAVIGATION                                      -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav-inner container">
+      <a href="/" class="nav-brand" aria-label="Little Stage — Startseite">
+        <span class="nav-brand-name">Little Stage</span>
+        <span class="nav-brand-tagline">Pub · Live Music · Wien</span>
+      </a>
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html#events">Events</a></li>
+          <li><a href="karte.html">Essen &amp; Trinken</a></li>
+          <li><a href="feiern.html">Feiern</a></li>
+          <li><a href="bands.html">Für Bands</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+        </ul>
+      </nav>
+      <a href="index.html#reservieren" class="btn btn-primary btn-small nav-cta">Tisch reservieren</a>
+      <button class="nav-mobile-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="karte.html">Essen &amp; Trinken</a></li>
+        <li><a href="feiern.html">Feiern</a></li>
+        <li><a href="bands.html">Für Bands</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+      </ul>
+      <a href="index.html#reservieren" class="btn btn-primary mobile-cta">Tisch reservieren</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero hero-small" id="hero">
+      <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80');" role="img" aria-label="Essen und Trinken im Little Stage"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-headline">
+          <span>Essen & Trinken</span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- INFO TEXT -->
+    <section class="section">
+      <div class="container reveal">
+        <h2>Unsere Philosophie</h2>
+        <p>Frisch gezapftes Trumer Pils, ehrliche Beislküche und eine wechselnde Tageskarte. Wir legen Wert auf Qualität ohne Schnickschnack. Ob gemütlich bei einem Glas Wein im Schanigarten oder einem Guinness an der Bar — bei uns schmeckt es wie zu Hause, nur besser.</p>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="section section-dark" id="karte">
+      <div class="container reveal">
+        <div id="menu-container"></div>
+        <p class="text-muted" style="margin-top: var(--space-xl); text-align: center;">Preise können sich ändern. Tageskarte bitte vor Ort erfragen.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- FOOTER                                          -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <footer class="footer" id="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-col footer-brand-col">
+          <a href="/" class="footer-brand" aria-label="Little Stage — Startseite">
+            <span class="nav-brand-name">Little Stage</span>
+            <span class="nav-brand-tagline">Pub · Live Music · Wien</span>
+          </a>
+          <p>
+            Live-Musik, gutes Bier und Wiener Beislkultur
+            seit 1998 in Margareten.
+          </p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/LittleStage" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation Column -->
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="karte.html">Essen &amp; Trinken</a></li>
+            <li><a href="feiern.html">Feiern</a></li>
+            <li><a href="bands.html">Für Bands</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li>
+              <a href="tel:+4315442690">01 544 26 90</a>
+            </li>
+            <li>
+              <a href="mailto:info@littlestage.at">info@littlestage.at</a>
+            </li>
+            <li>
+              <address style="font-style: normal;">
+                Ramperstorffergasse 66<br>
+                1050 Wien
+              </address>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Hours Column -->
+        <div class="footer-col">
+          <h4>Öffnungszeiten</h4>
+          <!-- Rendered from single SITE_DATA source by JS -->
+          <div class="hours-container"></div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p>&copy; <span id="copyright-year">2026</span> Little Stage · Fa. Manfred Szendi</p>
+        <div class="footer-legal">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/site-data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('menu-container');
+      if (!container || typeof SITE_DATA === 'undefined' || !SITE_DATA.menu) return;
+      
+      let html = '';
+      for (const [key, category] of Object.entries(SITE_DATA.menu)) {
+        html += `<div class="menu-category">`;
+        html += `<h3>${category.icon || ''} ${category.title}</h3>`;
+        if (category.note) {
+          html += `<p class="text-muted">${category.note}</p>`;
+        }
+        if (category.items && category.items.length > 0) {
+          category.items.forEach(item => {
+            if (!item.available) return;
+            html += `<div class="menu-item">`;
+            html += `<div><span class="menu-item-name">${item.name}</span>`;
+            if (item.description) {
+              html += `<br><span class="menu-item-description">${item.description}</span>`;
+            }
+            html += `</div>`;
+            html += `<span class="menu-item-price">€ ${item.price.toFixed(2).replace('.', ',')}</span>`;
+            html += `</div>`;
+          });
+        }
+        html += `</div>`;
+      }
+      container.innerHTML = html;
+    });
+  </script>
+
+</body>
+</html>

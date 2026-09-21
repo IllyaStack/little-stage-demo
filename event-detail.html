@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Dynamic title set by JS -->
+  <title>Event — Little Stage Wien</title>
+  <meta name="description" content="Event-Details im Little Stage Wien.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_AT">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+
+  <style>
+    .event-detail { margin-top: 80px; }
+    .event-detail-header { position: relative; min-height: 50vh; display: flex; align-items: flex-end; background-size: cover; background-position: center; }
+    .event-detail-header .hero-overlay { position: absolute; inset: 0; background: linear-gradient(transparent 20%, var(--color-bg) 100%); z-index: 1; }
+    .event-detail-header-content { position: relative; z-index: 2; padding: var(--space-lg) var(--space-md); width: 100%; max-width: var(--max-width); margin: 0 auto; }
+    .event-detail-genre { display: inline-block; font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent); background: rgba(200,149,108,0.15); padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: var(--space-sm); }
+    .event-detail-title { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; text-transform: uppercase; margin-bottom: var(--space-xs); }
+    .event-detail-meta { display: flex; flex-wrap: wrap; gap: var(--space-md); color: var(--color-text-muted); font-size: 1rem; margin-bottom: var(--space-sm); }
+    .event-detail-meta span { display: flex; align-items: center; gap: 0.4rem; }
+    .event-detail-body { max-width: var(--max-width-narrow); }
+    .event-detail-body p { color: var(--color-text-muted); line-height: 1.8; margin-bottom: var(--space-md); font-size: 1.05rem; }
+    .event-detail-ticket { background: var(--color-bg-card); padding: var(--space-md); border-radius: var(--radius-lg); border-left: 3px solid var(--color-accent); margin-bottom: var(--space-md); }
+    .event-detail-ticket h3 { font-family: var(--font-display); margin-bottom: var(--space-xs); }
+    .event-detail-ticket p { color: var(--color-text-muted); margin: 0; }
+    .event-detail-actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-md); }
+    .event-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--color-accent); text-decoration: none; font-weight: 500; margin-bottom: var(--space-md); transition: gap 0.2s ease; }
+    .event-back:hover { gap: 0.7rem; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-brand" aria-label="Little Stage — Startseite">
+        <span class="nav-brand-name">Little Stage</span>
+        <span class="nav-brand-tagline">Pub · Live Music · Wien</span>
+      </a>
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html#events">Events</a></li>
+          <li><a href="karte.html">Essen &amp; Trinken</a></li>
+          <li><a href="feiern.html">Feiern</a></li>
+          <li><a href="bands.html">Für Bands</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+        </ul>
+      </nav>
+      <a href="index.html#reservieren" class="btn btn-primary btn-small nav-cta">Tisch reservieren</a>
+      <button class="nav-mobile-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="karte.html">Essen &amp; Trinken</a></li>
+        <li><a href="feiern.html">Feiern</a></li>
+        <li><a href="bands.html">Für Bands</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+      </ul>
+      <a href="index.html#reservieren" class="btn btn-primary mobile-cta">Tisch reservieren</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="event-detail" id="event-detail">
+      <!-- Rendered by JavaScript -->
+      <div class="section" style="text-align: center; padding-top: 120px;">
+        <p class="text-muted">Event wird geladen...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <a href="index.html" class="footer-brand">
+            <span class="nav-brand-name">Little Stage</span>
+            <span class="nav-brand-tagline">Pub · Live Music · Wien</span>
+          </a>
+          <p>Live-Musik, gutes Bier und Wiener Beislkultur seit 1998 in Margareten.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="karte.html">Essen &amp; Trinken</a></li>
+            <li><a href="feiern.html">Feiern</a></li>
+            <li><a href="bands.html">Für Bands</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+4315442690">01 544 26 90</a></li>
+            <li><a href="mailto:info@littlestage.at">info@littlestage.at</a></li>
+            <li><address style="font-style:normal;">Ramperstorffergasse 66<br>1050 Wien</address></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Öffnungszeiten</h4>
+          <div class="hours-container"></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="copyright-year">2026</span> Little Stage · Fa. Manfred Szendi</p>
+        <div class="footer-legal">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site-data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    /**
+     * Event Detail Page
+     * Reads event ID from URL query parameter and renders the full event detail.
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof SITE_DATA === 'undefined' || !SITE_DATA.events) return;
+
+      const params = new URLSearchParams(window.location.search);
+      const eventId = params.get('id');
+      const event = SITE_DATA.events.find(e => e.id === eventId);
+      const container = document.getElementById('event-detail');
+
+      if (!event) {
+        container.innerHTML = `
+          <div class="section" style="text-align: center; padding-top: 120px;">
+            <h2>Event nicht gefunden</h2>
+            <p class="text-muted" style="margin: 1rem 0 2rem;">Dieses Event existiert nicht oder ist nicht mehr verfügbar.</p>
+            <a href="events.html" class="btn btn-secondary">← Alle Events</a>
+          </div>`;
+        return;
+      }
+
+      const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+      const weekdays = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+      const d = new Date(event.date);
+      const dateFormatted = `${weekdays[d.getDay()]}, ${d.getDate()}. ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+      // Update page title
+      document.title = `${event.title} — Little Stage Wien`;
+
+      container.innerHTML = `
+        <div class="event-detail-header" style="background-image: url('${event.image || ''}');">
+          <div class="hero-overlay"></div>
+          <div class="event-detail-header-content">
+            ${event.genre ? `<span class="event-detail-genre">${event.genre}</span>` : ''}
+            <h1 class="event-detail-title">${event.title}</h1>
+            <div class="event-detail-meta">
+              <span>📅 ${dateFormatted}</span>
+              <span>🕐 ${event.time} Uhr</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="container">
+            <a href="events.html" class="event-back">← Zurück zu allen Events</a>
+
+            <div class="event-detail-body">
+              <p>${event.description || ''}</p>
+
+              ${event.ticketInfo ? `
+                <div class="event-detail-ticket">
+                  <h3>Eintritt</h3>
+                  <p>${event.ticketInfo}</p>
+                </div>
+              ` : ''}
+
+              <div class="event-detail-actions">
+                <a href="index.html#reservieren" class="btn btn-primary">Tisch reservieren</a>
+                <a href="events.html" class="btn btn-outline">Alle Events</a>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      // Add Event schema.org structured data
+      const schema = {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": event.title,
+        "startDate": `${event.date}T${event.time}:00`,
+        "location": {
+          "@type": "Place",
+          "name": "Little Stage",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Ramperstorffergasse 66",
+            "addressLocality": "Wien",
+            "postalCode": "1050",
+            "addressCountry": "AT"
+          }
+        },
+        "description": event.description || '',
+        "image": event.image || '',
+        "organizer": {
+          "@type": "Organization",
+          "name": "Little Stage",
+          "url": "https://littlestage.at"
+        }
+      };
+      if (event.ticketInfo) {
+        schema.offers = {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "description": event.ticketInfo
+        };
+      }
+      const schemaScript = document.createElement('script');
+      schemaScript.type = 'application/ld+json';
+      schemaScript.textContent = JSON.stringify(schema);
+      document.head.appendChild(schemaScript);
+    });
+  </script>
+</body>
+</html>

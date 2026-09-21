@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Little Stage Wien</title>
+  <meta name="description" content="Kommende Events, Konzerte und Veranstaltungen im Little Stage — Pub & Live-Musik in Wien-Margareten.">
+  <link rel="canonical" href="https://littlestage.at/events">
+  <meta property="og:title" content="Events — Little Stage Wien">
+  <meta property="og:description" content="Kommende Events, Konzerte und Veranstaltungen im Little Stage.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_AT">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav-inner container">
+      <a href="index.html" class="nav-brand" aria-label="Little Stage — Startseite">
+        <span class="nav-brand-name">Little Stage</span>
+        <span class="nav-brand-tagline">Pub · Live Music · Wien</span>
+      </a>
+      <nav class="nav-links" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html#events">Events</a></li>
+          <li><a href="karte.html">Essen &amp; Trinken</a></li>
+          <li><a href="feiern.html">Feiern</a></li>
+          <li><a href="bands.html">Für Bands</a></li>
+          <li><a href="ueber-uns.html">Über uns</a></li>
+        </ul>
+      </nav>
+      <a href="index.html#reservieren" class="btn btn-primary btn-small nav-cta">Tisch reservieren</a>
+      <button class="nav-mobile-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="index.html#events">Events</a></li>
+        <li><a href="karte.html">Essen &amp; Trinken</a></li>
+        <li><a href="feiern.html">Feiern</a></li>
+        <li><a href="bands.html">Für Bands</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+      </ul>
+      <a href="index.html#reservieren" class="btn btn-primary mobile-cta">Tisch reservieren</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Header -->
+    <section class="page-header" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1920&q=80');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Events</h1>
+        <p class="hero-subtitle">Konzerte, Live-Musik, Pub Quiz und mehr.</p>
+      </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="section" id="upcoming">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-divider"></div>
+          <h2>Kommende Events</h2>
+        </div>
+        <div class="events-grid" id="all-upcoming-events">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Past Events -->
+    <section class="section section-dark" id="past">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-divider"></div>
+          <h2>Vergangene Events</h2>
+        </div>
+        <div class="events-grid" id="past-events">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <a href="index.html" class="footer-brand">
+            <span class="nav-brand-name">Little Stage</span>
+            <span class="nav-brand-tagline">Pub · Live Music · Wien</span>
+          </a>
+          <p>Live-Musik, gutes Bier und Wiener Beislkultur seit 1998 in Margareten.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/LittleStage" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#events">Events</a></li>
+            <li><a href="karte.html">Essen &amp; Trinken</a></li>
+            <li><a href="feiern.html">Feiern</a></li>
+            <li><a href="bands.html">Für Bands</a></li>
+            <li><a href="ueber-uns.html">Über uns</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+4315442690">01 544 26 90</a></li>
+            <li><a href="mailto:info@littlestage.at">info@littlestage.at</a></li>
+            <li><address style="font-style:normal;">Ramperstorffergasse 66<br>1050 Wien</address></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Öffnungszeiten</h4>
+          <div class="hours-container"></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="copyright-year">2026</span> Little Stage · Fa. Manfred Szendi</p>
+        <div class="footer-legal">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site-data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    /**
+     * Events Page: Render ALL upcoming and past events (not just 3).
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof SITE_DATA === 'undefined' || !SITE_DATA.events) return;
+
+      const months = ['JAN','FEB','MÄR','APR','MAI','JUN','JUL','AUG','SEP','OKT','NOV','DEZ'];
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const upcoming = SITE_DATA.events
+        .filter(e => e.status === 'upcoming' && new Date(e.date) >= today)
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      const past = SITE_DATA.events
+        .filter(e => e.status === 'past' || (e.status === 'upcoming' && new Date(e.date) < today))
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      function renderEventCards(events, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        if (events.length === 0) {
+          container.innerHTML = '<div class="events-empty"><p>Keine Events in dieser Kategorie.</p></div>';
+          return;
+        }
+
+        container.innerHTML = events.map((event, i) => {
+          const d = new Date(event.date);
+          const day = String(d.getDate()).padStart(2, '0');
+          const month = months[d.getMonth()];
+          return `
+            <article class="event-card reveal">
+              <div class="event-card-image">
+                <img src="${event.image || ''}" alt="${event.title}" loading="lazy">
+              </div>
+              <div class="event-card-content">
+                <div class="event-card-date">
+                  <span class="day">${day}</span>
+                  <span class="month">${month}</span>
+                </div>
+                <div class="event-card-info">
+                  <span class="event-card-genre">${event.genre || ''}</span>
+                  <h3 class="event-card-title">${event.title}</h3>
+                  <p class="event-card-time">${event.time} Uhr</p>
+                  <a href="event-detail.html?id=${event.id}" class="event-card-link">Mehr erfahren →</a>
+                </div>
+              </div>
+            </article>`;
+        }).join('');
+
+        initScrollReveal();
+      }
+
+      renderEventCards(upcoming, 'all-upcoming-events');
+      renderEventCards(past, 'past-events');
+
+      // Hide past section if empty
+      if (past.length === 0) {
+        const pastSection = document.getElementById('past');
+        if (pastSection) pastSection.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
